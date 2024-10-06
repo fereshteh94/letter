@@ -3,7 +3,8 @@ package com.dpi.ir.simin.controller;
 import com.dpi.ir.simin.Exception.DuplicateLetterNumberException;
 import com.dpi.ir.simin.Exception.LetterNotFoundException;
 import com.dpi.ir.simin.dto.LetterDTO;
-import com.dpi.ir.simin.entity.Letter;
+import com.dpi.ir.simin.dto.LetterReferenceDTO;
+import com.dpi.ir.simin.entity.LetterReference;
 import com.dpi.ir.simin.service.LetterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @RestController
@@ -50,5 +51,11 @@ public class LetterController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);  
         }
+    }
+
+
+    @PostMapping("/getAllReferences")
+    public List<LetterReference> getAllLetterReferences(@Valid @RequestBody LetterReferenceDTO letterReferenceDTO) {
+        return letterService.getAllLetterReferences(letterReferenceDTO);
     }
 }
